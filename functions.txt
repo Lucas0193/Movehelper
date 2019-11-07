@@ -1,0 +1,21 @@
+Authorization module:
+--User Sign in 
+--User Log in  
+----forget password
+
+User Module:
+--Account Management 
+----head shot setting
+------upload user-self
+----personal information setting
+----notification setting
+----orders
+----change password
+----change email-address/phone
+----delete account
+
+Administration module:
+--administrator
+----administer User
+----administer orders
+----sys notification/email

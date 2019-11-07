@@ -1,0 +1,2 @@
+FLASK_APP=movehelper
+FLASK_ENV=development

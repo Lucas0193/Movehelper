@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}Certification{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="row">
+           
+            <div class="col-md-4">
+                <div class="card mb-3 w-100 bg-light">
+                    <div class="card-header"><h3>Welcome to Movehelper!</h3>
+                                             <h4>Welcome: {{ current_user.username }}!</h4>
+                                             {% if current_user.confirmed %}
+                                                <h4>User State: Confirmed</h4>
+                                             {% else %}
+                                             <h4>User State: Unconfirmed</h4>
+                                             {% endif %}
+                    </div>
+                    <div class="card-body">
+                        {{ render_form(form) }}
+                        <hr>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

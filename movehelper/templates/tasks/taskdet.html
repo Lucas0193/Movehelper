@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>MoveHelper </h1>
+    <div class="row">
+        <div class="col-sm-8">
+            
+          
+            <p>Title:&nbsp;&nbsp;{{ task.title }}</p>
+            <p>Announcer:&nbsp;&nbsp;{{ task.announcer.username }}</p>
+            <p>Release Time:&nbsp;&nbsp;{{ task.pubtime }}</p>
+            <p>Context:&nbsp;&nbsp;{{ task.context }}</p>
+            <p>Contact:&nbsp;&nbsp;{{ task.contact }}</p>
+            <p>Location:&nbsp;&nbsp;{{ task.location }}</p>
+        </div>
+    </div>
+    <a href="{{ url_for('user.index') }}">Back to My account</a>
+    
+{% endblock %}

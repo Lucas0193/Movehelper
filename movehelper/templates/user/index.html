@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pager %}
+{% block content %}
+    <h1>MoveHelper </h1>
+    {% for message in get_flashed_messages() %}
+        <div class="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h2>Welcome: {{ current_user.username }}!</h2>
+    <ul>
+        <li><a href="{{ url_for('user.index') }}">My Account</a></li>
+    </ul>
+    {% if current_user.confirmed %}
+        <h3>User State: Confirmed</h3>
+        <div class="row">
+            <div class="col-sm-8">
+                
+                {% if tasks %}
+                    {% for task in tasks %}
+                        <P>
+                            <a href="{{ url_for('tasks.taskdet', task_id=task.id) }}">
+                                Title:&nbsp;&nbsp;{{ task.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Released at:&nbsp;&nbsp;{{ task.pubtime }}
+                            </a>
+                        </P>
+                    {% endfor %}
+                    {% if tasks %}
+                        <div class="page-footer">{{ render_pager(pagination) }}</div>
+                    {% endif %}
+                {% else %}    
+                    <h4>You can rlease new announcement!</h4>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <h3>User State: Unconfirmed</h3>
+        <div class="row">
+            <div class="col-sm-8">
+                
+                {% if tasks %}
+                    {% for task in tasks %}
+                        <p>
+                            Title:&nbsp;&nbsp;{{ task.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Released at:&nbsp;&nbsp;{{ task.pubtime }}
+                        </p>
+                        
+                    {% endfor %}
+                    {% if tasks %}
+                        <div class="page-footer">{{ render_pager(pagination) }}</div>
+                    {% endif %}
+                    <h4>Please confirm your account</h4>
+                {% else %}    
+                    <h4>Confirm and rlease new announcement!</h4>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    
+    <a href="{{ url_for('tasks.mytasks')}}">My Tasks</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{{ url_for('tasks.newtask') }}">Release Task</a> </br> 
+    <a href="{{ url_for('user.certificate') }}">Certificate</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{{ url_for('auth.logout') }}">Logout</a>  
+{% endblock %}
