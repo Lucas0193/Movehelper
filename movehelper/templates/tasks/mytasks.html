@@ -3,15 +3,23 @@
 {% block content %}
     <h1>MoveHelper </h1>
     <h2>{{ current_user.username }}'s Tasks</h2>
+    {% for message in get_flashed_messages() %}
+        <div class="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
         <div class="row">
             <div class="col-sm-8">
                 
                 {% if usertasks %}
                     {% for usertask in usertasks %}
-                        <P>
-                            <a href="{{ url_for('tasks.taskdet', task_id=usertask.id) }}">
+                        <P nowrap>
+                            <a href="{{ url_for('tasks.taskdet', task_id=usertask.id, editbool=1) }}">
                                 Title:&nbsp;&nbsp;{{ usertask.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Released at:&nbsp;&nbsp;{{ usertask.pubtime }}
-                            </a>
+                            </a>&nbsp;&nbsp;
+                            <button type="submit" class="btn btn-info btn-sm"><a href="{{ url_for('tasks.taskedit', task_id=usertask.id) }}">Edit this Task</a></button>&nbsp;
+                            <button type="submit" class="btn btn-info btn-sm" onclick="return confirm('Are you sure?');">
+                                <a href="{{ url_for('tasks.taskdelete', task_id=usertask.id) }}">Delete this Task</a></button>
                         </P>
                     {% endfor %}
                     {% if usertasks %}
@@ -22,6 +30,6 @@
                 {% endif %}
             </div>
         </div>
-    
+        <a href="{{ url_for('tasks.newtask') }}">Release Task</a> </br> 
     <a href="{{ url_for('user.index') }}">Back to My account</a>
 {% endblock %}

@@ -1,5 +1,6 @@
 from datetime import datetime
 from movehelper.tools import db
+from sqlalchemy import func
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -9,7 +10,7 @@ class UserAccount(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, index=True)
     email = db.Column(db.String(254), unique=True, index=True)
     password_hash = db.Column(db.String(128))
-    reg = db.Column(db.DateTime, default=datetime.utcnow)
+    reg = db.Column(db.DateTime(timezone=True), server_default=func.now())
     fname = db.Column(db.String(70))
     mname = db.Column(db.String(70))
     lname = db.Column(db.String(70))
@@ -36,7 +37,7 @@ class UserAccount(db.Model, UserMixin):
 class UserTasks(db.Model):
 
     id = db.Column( db.Integer, primary_key=True)
-    pubtime = db.Column(db.DateTime, default=datetime.utcnow)
+    pubtime = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     title = db.Column(db.String(70))
     context = db.Column(db.Text)
     contact = db.Column(db.String(20))

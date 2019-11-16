@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
 {% from 'bootstrap/form.html' import render_form %}
-
-{% block title %}NewTask{% endblock %}
-
 {% block content %}
     <div class="jumbotron">
         <div class="row">
-           
+        
             <div class="col-md-4">
                 <div class="card mb-3 w-100 bg-light">
-                    <div class="card-header"><h4>Release New Task!</h4></div>
+                    <div class="card-header"><h4>Update Your Task</h4></div>
                     <div class="card-body">
                         {{ render_form(form) }}
                         <hr>
@@ -21,4 +18,6 @@
             <a href="{{ url_for('user.index') }}">Back to My account</a>
         </div>
     </div>
+    
+    
 {% endblock %}

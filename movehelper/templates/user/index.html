@@ -19,7 +19,7 @@
                 {% if tasks %}
                     {% for task in tasks %}
                         <P>
-                            <a href="{{ url_for('tasks.taskdet', task_id=task.id) }}">
+                            <a href="{{ url_for('tasks.taskdet', task_id=task.id, editbool=0) }}">
                                 Title:&nbsp;&nbsp;{{ task.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Released at:&nbsp;&nbsp;{{ task.pubtime }}
                             </a>
                         </P>
