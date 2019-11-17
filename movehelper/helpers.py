@@ -1,10 +1,6 @@
 
 import os
 
-
-
-
-
 from flask import current_app, request, url_for, redirect, flash
 from itsdangerous import BadSignature, SignatureExpired
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -35,7 +31,7 @@ def validate_token(user, token, operation, new_password=None):
     if operation == Operations.CONFIRM:
         user.confirmed = True
     elif operation == Operations.RESET_PASSWORD:
-        user.set_password(new_password)
+        user.create_password(new_password)
     elif operation == Operations.CHANGE_EMAIL:
         new_email = data.get('new_email')
         if new_email is None:

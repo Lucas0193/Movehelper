@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base3.html' %}
 {% from 'bootstrap/form.html' import render_form %}
 {% block content %}
     <div class="jumbotron">
@@ -12,10 +12,11 @@
                         <hr>
                         
                     </div>
+                    <a href="{{ url_for('tasks.mytasks') }}">Back to mytasks</a></br>
+                    <a href="{{ url_for('user.index') }}">Back to My account</a>
                 </div>
             </div>
-            <a href="{{ url_for('tasks.mytasks') }}">Back to mytasks</a></br>
-            <a href="{{ url_for('user.index') }}">Back to My account</a>
+
         </div>
     </div>
     

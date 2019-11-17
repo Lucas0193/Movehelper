@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base3.html' %}
     
 {% block content %}
     {% for message in get_flashed_messages() %}
@@ -20,7 +20,8 @@
         </div>
     </div>
     {% if userid == task.user_id %}
-        <button type="submit"><a class="btn btn-info btn-sm" href="{{ url_for('tasks.taskedit', task_id=task.id) }}">Edit this Task</a></button></br>
+        <a class="btn btn-info btn-sm" href="{{ url_for('tasks.taskedit', task_id=task.id) }}">Edit this Task</a></br>
+        
         <form class="inline" method="post"
             action="{{  url_for('tasks.taskdelete', task_id=task.id) }}">
             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</button>

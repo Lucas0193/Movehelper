@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base3.html' %}
 {% from 'bootstrap/pagination.html' import render_pager %}
 {% block content %}
     <h1>MoveHelper </h1>
@@ -15,7 +15,7 @@
                     {% for usertask in usertasks %}
                         <P nowrap>
                             <a href="{{ url_for('tasks.taskdet', task_id=usertask.id, editbool=1) }}">
-                                Title:&nbsp;&nbsp;{{ usertask.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Released at:&nbsp;&nbsp;{{ usertask.pubtime }}
+                                TaskID:&nbsp;&nbsp;{{ usertask.id }}&nbsp;&nbsp;|Title:&nbsp;&nbsp;{{ usertask.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Released at:&nbsp;&nbsp;{{ usertask.pubtime }}
                             </a>&nbsp;&nbsp;
                             <button type="submit" class="btn btn-info btn-sm"><a href="{{ url_for('tasks.taskedit', task_id=usertask.id) }}">Edit this Task</a></button>&nbsp;
                             <button type="submit" class="btn btn-info btn-sm" onclick="return confirm('Are you sure?');">

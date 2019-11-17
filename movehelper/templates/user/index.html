@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% from 'bootstrap/pagination.html' import render_pager %}
 {% block content %}
     <h1>MoveHelper </h1>
@@ -8,9 +8,6 @@
         </div>
     {% endfor %}
     <h2>Welcome: {{ current_user.username }}!</h2>
-    <ul>
-        <li><a href="{{ url_for('user.index') }}">My Account</a></li>
-    </ul>
     {% if current_user.confirmed %}
         <h3>User State: Confirmed</h3>
         <div class="row">

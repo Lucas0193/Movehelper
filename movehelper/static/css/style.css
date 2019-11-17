@@ -1,6 +1,6 @@
 /* global */
-
-.tip { /* from github.com */
+/*
+.tip { 
     position: relative;
     padding: 40px;
     text-align: center;
@@ -61,32 +61,32 @@ footer {
     border-top: 1px solid #e5e5e5;
 }
 
-/* for navbar */
+
 .avatar-xs {
     width: 22px;
     height: 22px;
     border-radius: 2px;
 }
 
-/* for photo page */
+
 .avatar-s {
     width: 50px;
     height: 50px;
 }
 
-/* for user card */
+
 .avatar-m {
     width: 100px;
     height: 100px;
 }
 
-/* for user header */
+
 .avatar-l {
     width: 180px;
     height: 180px;
 }
 
-/* list item */
+
 .photo-card {
     float: left;
     width: 33.333%;
@@ -178,7 +178,7 @@ footer {
     }
 }
 
-/* photo page */
+
 .photo {
     padding: 10px 0;
     text-align: center;
@@ -253,8 +253,61 @@ footer {
 .comment-form {
     margin: 5px 0 16px 60px;
 }
+*/
+a:link {text-decoration:none;}
+a:visited {text-decoration:none;}
+a:hover {text-decoration:underline;}
+a:active {text-decoration:underline;}
 
-/* Jcrop widget */
+/* drop down menu*/
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+/*menu end*/
+
+/* 
 #preview-box {
     display: block;
     position: absolute;
@@ -273,13 +326,13 @@ footer {
     box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Photo Page */
+
 #tag-form, #description-form {
     display: none;
     margin: 20px 0;
 }
 
-#toast { /* form w3school.com */
+#toast { 
     display: none;
     min-width: 200px;
     margin-left: -125px;
@@ -293,3 +346,4 @@ footer {
     left: 50%;
     bottom: 30px;
 }
+*/
