@@ -21,14 +21,6 @@
         border: none;
         cursor: pointer;
         }
-        .dropbtn2 {
-        background-color: rgb(19, 112, 233);
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-        }
 
         .dropdown {
         position: relative;
@@ -102,11 +94,20 @@
         <button class="dropbtn1"><a href="{{ url_for('auth.logout') }}">Logout</a></button>
     </div>
     <div class="dropdown" style="float:right;">
+        <button class="dropbtn" style="background-color: rgb(19, 112, 233);"><a href="{{ url_for('tasks.mytasks')}}">My Tasks</a></button>
+        <div class="dropdown-content">
+            <a href="{{ url_for('tasks.newtask') }}">Release Task</a>
+        </div>
+    </div>
+    <div class="dropdown" style="float:right;">
         <button class="dropbtn"><a href="{{ url_for('user.index') }}">My Account</a></button>
         <div class="dropdown-content">
-            <a href="{{ url_for('tasks.mytasks')}}">My Tasks</a>
-            <a href="{{ url_for('tasks.newtask') }}">Release Task</a>
+            <a href="#">Profile</a>
+            <a href="#">Notification</a>
+            <a href="#">Change Password</a>
+            <a href="#">Delete Account</a>
             <a href="{{ url_for('user.certificate') }}">Certificate</a>
+            
         </div>
     </div>
     <main>
