@@ -13,7 +13,22 @@
         border: none;
         cursor: pointer;
         }
-
+        .dropbtn1 {
+        background-color: rgb(233, 163, 14);
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        }
+        .dropbtn2 {
+        background-color: rgb(19, 112, 233);
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        }
 
         .dropdown {
         position: relative;
@@ -49,16 +64,51 @@
         .dropdown:hover .dropbtn {
         background-color: #3e8e41;
         }    
+        .dropbtn a:link {
+        color:#FFFFFF;
+        text-decoration:none;
+        }
+        .dropbtn a:visited {
+        color:#FFFFFF;
+        text-decoration:none;
+        }
+        .dropbtn a:hover {
+        color:#FFFFFF;
+        text-decoration:none;
+        }
+        .dropbtn a:active {
+        color:#FFFFFF;
+        text-decoration:none;
+        }
+        .dropbtn1 a:link {
+        color:#FFFFFF;
+        text-decoration:none;
+        }
+        .dropbtn1 a:visited {
+        color:#FFFFFF;
+        text-decoration:none;
+        }
+        .dropbtn1 a:hover {
+        color:#FFFFFF;
+        text-decoration:none;
+        }
+        .dropbtn1 a:active {
+        color:#FFFFFF;
+        text-decoration:none;
+        }
     </style>
-    <div class="dropdown">
-        <button class="dropbtn">My Account</button>
+    
+    <div class="dropdown" style="float:right;">
+        <button class="dropbtn1"><a href="{{ url_for('auth.logout') }}">Logout</a></button>
+    </div>
+    <div class="dropdown" style="float:right;">
+        <button class="dropbtn"><a href="{{ url_for('user.index') }}">My Account</a></button>
         <div class="dropdown-content">
-          <a href="#">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
+            <a href="{{ url_for('tasks.mytasks')}}">My Tasks</a>
+            <a href="{{ url_for('tasks.newtask') }}">Release Task</a>
+            <a href="{{ url_for('user.certificate') }}">Certificate</a>
         </div>
-      </div>
-
+    </div>
     <main>
         {% block content %}{% endblock %}
     </main>
