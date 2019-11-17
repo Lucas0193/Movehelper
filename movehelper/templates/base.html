@@ -4,7 +4,21 @@
     {{ bootstrap.load_css()}}
 </head>
 <body>
-
+    <style>
+        .alert {
+            left: 500px;
+            text-align: center;
+	        position: fixed;
+            top: 0;
+            width: fit-content;
+	        z-index: 100;
+        }    
+    </style>
+    {% for message in get_flashed_messages() %}
+        <div class="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
     <nav>
         <a href="{{ url_for('main.index') }}">Back to Home Page</a>
     </nav>

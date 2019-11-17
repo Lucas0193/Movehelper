@@ -2,14 +2,8 @@
 {% from 'bootstrap/pagination.html' import render_pager %}
 {% block content %}
     <h1>MoveHelper </h1>
-    {% for message in get_flashed_messages() %}
-        <div class="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
     <h2>Welcome: {{ current_user.username }}!</h2>
     {% if current_user.confirmed %}
-        <h3>User State: Confirmed</h3>
         <div class="row">
             <div class="col-sm-8">
                 
@@ -30,7 +24,6 @@
             </div>
         </div>
     {% else %}
-        <h3>User State: Unconfirmed</h3>
         <div class="row">
             <div class="col-sm-8">
                 

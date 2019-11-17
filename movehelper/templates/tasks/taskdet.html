@@ -1,11 +1,6 @@
 {% extends 'base2.html' %}
     
 {% block content %}
-    {% for message in get_flashed_messages() %}
-        <div class="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
     <h1>MoveHelper </h1>
     <div class="row">
         <div class="col-sm-8">
@@ -20,13 +15,13 @@
         </div>
     </div>
     {% if userid == task.user_id %}
-        <a class="btn btn-info btn-sm" href="{{ url_for('tasks.taskedit', task_id=task.id) }}">Edit this Task</a></br>
+        <a class="btn btn-info btn-sm" href="{{ url_for('tasks.taskedit', task_id=task.id) }}">Edit this Task</a></br></br>
         
         <form class="inline" method="post"
             action="{{  url_for('tasks.taskdelete', task_id=task.id) }}">
             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</button>
         </form></br></br>
     {% endif %}
-    <a href="{{ url_for('tasks.mytasks') }}">Back to mytasks</a>
+
 
 {% endblock %}

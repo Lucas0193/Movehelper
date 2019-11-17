@@ -3,11 +3,6 @@
 {% block content %}
     <h1>MoveHelper </h1>
     <h2>{{ current_user.username }}'s Tasks</h2>
-    {% for message in get_flashed_messages() %}
-        <div class="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
         <div class="row">
             <div class="col-sm-8">
                 

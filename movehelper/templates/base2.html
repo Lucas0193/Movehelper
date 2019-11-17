@@ -88,8 +88,21 @@
         color:#FFFFFF;
         text-decoration:none;
         }
+
+        .alert {
+            left: 500px;
+            text-align: center;
+            position: fixed;
+            width: fit-content;
+	        top: 0;
+	        z-index: 100;
+        } 
     </style>
-    
+    {% for message in get_flashed_messages() %}
+        <div class="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div class="dropdown" style="float:right;">
         <button class="dropbtn1"><a href="{{ url_for('auth.logout') }}">Logout</a></button>
     </div>
@@ -102,6 +115,11 @@
     <div class="dropdown" style="float:right;">
         <button class="dropbtn"><a href="{{ url_for('user.index') }}">My Account</a></button>
         <div class="dropdown-content">
+            {% if current_user.confirmed %}
+                <p style="background-color: #4CAF50; color: #FFF;">User State: Confirmed</p>
+            {% else %}
+                <p style="background-color: rgb(223, 26, 26); color: #FFF;">User State: Unconfirmed</p>
+            {% endif %}
             <a href="#">Profile</a>
             <a href="#">Notification</a>
             <a href="#">Change Password</a>
