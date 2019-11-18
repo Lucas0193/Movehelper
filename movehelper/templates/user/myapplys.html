@@ -1,0 +1,25 @@
+{% extends 'base2.html' %}
+{% from 'bootstrap/pagination.html' import render_pager %}
+{% block content %}
+    <h1>MoveHelper </h1>
+    <h2>{{ current_user.username }}'s Applications</h2>
+        <div class="row">
+            <div class="col-sm-8">
+                
+                {% if applys %}
+                    {% for apply in applys %}
+                        <P nowrap>
+                            <a href="{{ url_for('tasks.taskdet', task_id=apply.task_id) }}">
+                                OrderID:&nbsp;&nbsp;{{ apply.id }}&nbsp;&nbsp;|TaskID:&nbsp;&nbsp;{{ apply.task_id }}&nbsp;&nbsp;|TaskTitle:&nbsp;&nbsp;{{ apply.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Created at:&nbsp;&nbsp;{{ apply.createtime }}
+                            </a>
+                        </P>
+                    {% endfor %}
+                    {% if applys %}
+                        <div class="page-footer">{{ render_pager(pagination) }}</div>
+                    {% endif %}
+                {% else %}    
+                    <h4>No records!</h4>
+                {% endif %}
+            </div>
+        </div>
+{% endblock %}

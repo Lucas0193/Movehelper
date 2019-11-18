@@ -1,10 +1,12 @@
 from flask import render_template, flash, redirect, url_for, Blueprint, request, current_app
 from flask_login import login_user, logout_user, login_required, current_user, login_fresh, confirm_login
 from datetime import datetime
+from sqlalchemy import join
+
 from movehelper.config import Operations
 from movehelper.emails import send_confirm_email
 from movehelper.forms.tasks import NewTask
-from movehelper.models import UserAccount, UserTasks
+from movehelper.models import UserAccount, UserTasks, TaskOrders
 from movehelper.tools import db
 from movehelper.helpers import generate_token, validate_token
 from movehelper.filter import confirm_required
@@ -31,17 +33,15 @@ def newtask():
     return render_template('tasks/newtask.html', form=form)
 
     
-@tasks_bp.route('task/<int:task_id>/<int:editbool>', methods=['GET', 'POST'])
+@tasks_bp.route('task/<int:task_id>', methods=['GET', 'POST'])
 @login_required
 @confirm_required
-def taskdet(task_id, editbool):
+def taskdet(task_id):
     task = UserTasks.query.get_or_404(task_id)
     userid = current_user.id
-    if editbool == 1 :
-        return render_template('tasks/taskdet.html', task=task, userid=userid)
-    else :
-        userid = 0
-        return render_template('tasks/taskdet.html', task=task, userid=userid)
+    taskstatus = task.status
+    return render_template('tasks/taskdet.html', task=task, userid=userid, taskstatus=taskstatus)
+    
 
 @tasks_bp.route('/mytasks', methods=['GET', 'POST'])
 @login_required
@@ -84,3 +84,11 @@ def taskdelete(task_id):
     db.session.commit()
     flash ('Task Deleted!', 'success')
     return redirect(url_for('tasks.mytasks'))
+
+@tasks_bp.route('/task/<int:task_id>/applieddet', methods=['GET', 'POST'])
+@login_required
+@confirm_required
+def applieddet(task_id):
+    order = TaskOrders.query.join(UserAccount, TaskOrders.manpower1==UserAccount.id).join(UserTasks).filter(TaskOrders.task_id==task_id).with_entities(TaskOrders.id, UserTasks.title, UserTasks.contact, UserTasks.context, UserTasks.location, TaskOrders.createtime, UserAccount.fname, UserAccount.mname, UserAccount.lname, UserAccount.gender, UserAccount.birth, UserAccount.onid, UserAccount.license).first()
+    
+    return render_template('tasks/orderdet.html', order=order)

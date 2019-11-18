@@ -1,0 +1,27 @@
+{% extends 'base2.html' %}
+    
+{% block content %}
+    <h1>MoveHelper </h1>
+    <div class="row">
+        <div class="col-sm-8">
+            <P>Task Details</P>
+            <p>Title:&nbsp;&nbsp;{{ order.title }}</p>
+            <p>Context:&nbsp;&nbsp;{{ order.context }}</p>
+            <p>Contact:&nbsp;&nbsp;{{ order.contact }}</p>
+            <p>Location:&nbsp;&nbsp;{{ order.location }}</p>
+        </div>
+        <div class="col-sm-8">
+            <p>Application Details</p>
+            <p>OrderID:&nbsp;&nbsp;{{ order.id }}</p>
+            <p>Applied DateTime:&nbsp;&nbsp;{{ order.createtime }}</p>
+            <p>Name:&nbsp;&nbsp;{{ order.fname }}.{{ order.mname }}.{{ order.lname }}</p>
+            <p>Gender:&nbsp;&nbsp;{{ order.gender }}</p>
+            <p>Birthday:&nbsp;&nbsp;{{ order.birth }}</p>
+            <p>ONID:&nbsp;&nbsp;{{ order.onid }}</p>
+            <p>Driver Lisence:&nbsp;&nbsp;{{ order.license }}</p>
+        </div>
+    </div>
+    
+    <a href="{{ url_for('tasks.mytasks') }}">Back to My Tasks</a>
+
+{% endblock %}

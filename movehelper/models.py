@@ -54,9 +54,9 @@ class UserTasks(db.Model):
 class TaskOrders(db.Model):
     id = db.Column( db.Integer, primary_key=True)
     createtime = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-    manpower1 = db.Column(db.Integer, unique=True, index=True)
-    manpower2 = db.Column(db.Integer, unique=True, index=True)
-    manpower3 = db.Column(db.Integer, unique=True, index=True)
+    manpower1 = db.Column(db.Integer, index=True)
+    manpower2 = db.Column(db.Integer, index=True)
+    manpower3 = db.Column(db.Integer, index=True)
     status = status = db.Column(db.Boolean, default=True)
 
     task_id = db.Column(db.Integer, db.ForeignKey('user_tasks.id'))

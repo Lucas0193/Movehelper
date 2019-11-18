@@ -9,12 +9,17 @@
                 {% if usertasks %}
                     {% for usertask in usertasks %}
                         <P nowrap>
-                            <a href="{{ url_for('tasks.taskdet', task_id=usertask.id, editbool=1) }}">
+                            <a href="{{ url_for('tasks.taskdet', task_id=usertask.id) }}">
                                 TaskID:&nbsp;&nbsp;{{ usertask.id }}&nbsp;&nbsp;|Title:&nbsp;&nbsp;{{ usertask.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Released at:&nbsp;&nbsp;{{ usertask.pubtime }}
                             </a>&nbsp;&nbsp;
-                            <button type="submit" class="btn btn-info btn-sm"><a href="{{ url_for('tasks.taskedit', task_id=usertask.id) }}">Edit this Task</a></button>&nbsp;
-                            <button type="submit" class="btn btn-info btn-sm" onclick="return confirm('Are you sure?');">
-                                <a href="{{ url_for('tasks.taskdelete', task_id=usertask.id) }}">Delete this Task</a></button>
+                            {% if usertask.status == False %}
+                                <button class="btn btn-info btn-sm" style="background-color: chartreuse; white-space: nowrap;">Unapplied</button>&nbsp;
+                                <button type="submit" class="btn btn-info btn-sm"><a style="color: cornsilk;" href="{{ url_for('tasks.taskedit', task_id=usertask.id) }}">Edit this Task</a></button>&nbsp;
+                                <button type="submit" class="btn btn-info btn-sm" onclick="return confirm('Are you sure?');">
+                                    <a style="color: cornsilk;" href="{{ url_for('tasks.taskdelete', task_id=usertask.id) }}">Delete this Task</a></button>
+                            {% else %}
+                                <button class="btn btn-info btn-sm" style="background-color: rgb(245, 16, 27); white-space: nowrap;"><a style="color: cornsilk;" href="{{ url_for('tasks.applieddet', task_id=usertask.id) }}">Applied</a></button>&nbsp;
+                            {% endif %}
                         </P>
                     {% endfor %}
                     {% if usertasks %}

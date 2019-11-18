@@ -4,8 +4,11 @@
     <h1>MoveHelper </h1>
     <div class="row">
         <div class="col-sm-8">
-                
-            
+            {% if taskstatus == False %}
+                <p>Task Status: Task is waiting to apply!</p>
+            {% else %}
+                <p>Task Status: Task has been applied!</p>
+            {% endif %}
             <p>Title:&nbsp;&nbsp;{{ task.title }}</p>
             <p>Announcer:&nbsp;&nbsp;{{ task.announcer.username }}</p>
             <p>Release Time:&nbsp;&nbsp;{{ task.pubtime }}</p>
@@ -15,13 +18,15 @@
             <p>Manpower Requirement:&nbsp;&nbsp;{{ task.manpower }}</p>
         </div>
     </div>
-    {% if userid == task.user_id %}
+    {% if current_user.id == task.user_id and taskstatus == False %}
         <a class="btn btn-info btn-sm" href="{{ url_for('tasks.taskedit', task_id=task.id) }}">Edit this Task</a></br></br>
         
         <form class="inline" method="post"
             action="{{  url_for('tasks.taskdelete', task_id=task.id) }}">
             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</button>
         </form></br></br>
+    {% elif current_user.id != task.user_id and taskstatus == False %}
+        <a class="btn btn-info btn-sm" style="background-color: blueviolet;" href="{{ url_for('user.applytask', task_id=task.id) }}">Apply Task</a></br></br>
     {% endif %}
     <a href="{{ url_for('tasks.mytasks') }}">Back to My Tasks</a>
 
