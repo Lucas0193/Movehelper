@@ -22,7 +22,8 @@ def newtask():
         context = form.context.data
         contact = form.contact.data
         location = form.location.data
-        task = UserTasks(title=title, context=context, contact=contact, location=location, user_id=current_user.id )
+        manpower = form.manpower.data
+        task = UserTasks(title=title, context=context, contact=contact, location=location, manpower=manpower, user_id=current_user.id )
         db.session.add(task)
         db.session.commit()
         flash('Task Created!', 'success')
@@ -64,6 +65,7 @@ def taskedit(task_id):
         task.context = form.context.data
         task.contact = form.contact.data
         task.location = form.location.data
+        task.manpower = form.manpower.data
         db.session.commit()
         flash('Task Updated!','success')
         return redirect(url_for('tasks.taskdet', task_id=task.id, editbool=1))

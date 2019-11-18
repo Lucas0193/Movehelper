@@ -27,7 +27,7 @@ class UserAccount(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
     confirmed = db.Column(db.Boolean, default=False)
-    certification = db.Column(db.Boolean, default=False)
+    certificated = db.Column(db.Boolean, default=False)
 
     tasks = db.relationship('UserTasks', back_populates='announcer')
 
@@ -42,10 +42,24 @@ class UserTasks(db.Model):
     context = db.Column(db.Text)
     contact = db.Column(db.String(20))
     location = db.Column(db.String(100))
-    state = db.Column(db.Boolean, default=False)
+    manpower = db.Column(db.String(20))
+    status = db.Column(db.Boolean, default=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user_account.id'))
     announcer = db.relationship('UserAccount', back_populates='tasks')
-
+    applyer = db.relationship('TaskOrders', back_populates='order')
     def __repr__(self):
         return '%s %s %s %s %s %s %s' % (self.id, self.pubtime, self.title, self.context, self.contact, self.location, self.state)
+
+class TaskOrders(db.Model):
+    id = db.Column( db.Integer, primary_key=True)
+    createtime = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    manpower1 = db.Column(db.Integer, unique=True, index=True)
+    manpower2 = db.Column(db.Integer, unique=True, index=True)
+    manpower3 = db.Column(db.Integer, unique=True, index=True)
+    status = status = db.Column(db.Boolean, default=True)
+
+    task_id = db.Column(db.Integer, db.ForeignKey('user_tasks.id'))
+    order = db.relationship('UserTasks', back_populates='applyer')
+    def __repr__(self):
+        return '%s %s %s %s %s %s' % (self.id, self.createtime, self.manpower1, self.manpower2, self.manpower3, self.state)

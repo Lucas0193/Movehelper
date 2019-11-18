@@ -93,7 +93,7 @@
             left: 500px;
             text-align: center;
             position: fixed;
-            width: fit-content;
+            width: 300px;
 	        top: 0;
 	        z-index: 100;
         } 
@@ -107,24 +107,30 @@
         <button class="dropbtn1"><a href="{{ url_for('auth.logout') }}">Logout</a></button>
     </div>
     <div class="dropdown" style="float:right;">
-        <button class="dropbtn" style="background-color: rgb(19, 112, 233);"><a href="{{ url_for('tasks.mytasks')}}">My Tasks</a></button>
+        <button class="dropbtn" style="background-color: rgb(19, 112, 233);">Tasks</button>
         <div class="dropdown-content">
+            <a href="{{ url_for('tasks.mytasks')}}">My Tasks</a>
             <a href="{{ url_for('tasks.newtask') }}">Release Task</a>
         </div>
     </div>
     <div class="dropdown" style="float:right;">
-        <button class="dropbtn"><a href="{{ url_for('user.index') }}">My Account</a></button>
+        <button class="dropbtn">My Account</button>
         <div class="dropdown-content">
             {% if current_user.confirmed %}
-                <p style="background-color: #4CAF50; color: #FFF;">User State: Confirmed</p>
+                {% if current_user.certificated %}
+                    <p style="background-color: #4CAF50; color: #FFF;">User Status: Certificated</p>
+                {% else %}
+                    <p style="background-color: rgb(21, 162, 228); color: #FFF;">User Status: Confirmed</p>
+                {% endif %}
             {% else %}
-                <p style="background-color: rgb(223, 26, 26); color: #FFF;">User State: Unconfirmed</p>
+                <p style="background-color: rgb(223, 26, 26); color: #FFF;">User Status: Unconfirmed</p>
             {% endif %}
-            <a href="#">Profile</a>
-            <a href="#">Notification</a>
-            <a href="#">Change Password</a>
-            <a href="#">Delete Account</a>
-            <a href="{{ url_for('user.certificate') }}">Certificate</a>
+            <a href="{{ url_for('user.index') }}">My Home</a>
+            <a href="#">Profile(developing)</a>
+            <a href="#">Notification(developing)</a>
+            <a href="{{ url_for('user.passwordchange') }}">Change Password</a>
+            <a href="#">Delete Account(developing)</a>
+            <a href="{{ url_for('user.certificate') }}">Certification(developing)</a>
             
         </div>
     </div>

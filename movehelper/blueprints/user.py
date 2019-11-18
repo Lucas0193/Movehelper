@@ -1,10 +1,10 @@
 from flask import flash, redirect, url_for, render_template, Blueprint, request, current_app
 from flask_login import login_user, logout_user, login_required, current_user, login_fresh
 
-from movehelper.forms.user import Certification
+from movehelper.forms.user import Certification, PasswordChange
 from movehelper.models import UserAccount, UserTasks
 from movehelper.tools import db
-from movehelper.filter import confirm_required
+from movehelper.filter import confirm_required, certificate_required
 
 user_bp = Blueprint('user', '__name__')
 
@@ -16,6 +16,19 @@ def index():
     pagination = UserTasks.query.order_by(UserTasks.pubtime.desc()).paginate(page, per_page=per_page)
     tasks = pagination.items
     return render_template('user/index.html', pagination=pagination, tasks=tasks)
+
+@user_bp.route('/passwordchange', methods=['GET', 'POST'])
+@login_required
+@confirm_required
+def passwordchange():
+    form = PasswordChange()
+    if form.validate_on_submit():
+        current_user.create_password(form.pwd.data)
+        db.session.commit()
+        flash('PasswordChange successed. Please re-Login', 'success')
+        logout_user()
+        return redirect(url_for('main.index'))
+    return render_template('user/passwordchange.html', form=form)
 
 @user_bp.route('/certificate', methods=['GET', 'POST'])
 @login_required
@@ -31,7 +44,8 @@ def certificate():
         current_user.phone = form.phone.data
         current_user.onid = form.onid.data
         current_user.license = form.license.data
+        current_user.certificated = True
         db.session.commit()
-        flash('edit successed.', 'success')
+        flash('Certification successed.', 'success')
         return redirect(url_for('user.index'))
     return render_template('user/certificate.html', form = form)

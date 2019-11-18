@@ -12,6 +12,7 @@
             <p>Context:&nbsp;&nbsp;{{ task.context }}</p>
             <p>Contact:&nbsp;&nbsp;{{ task.contact }}</p>
             <p>Location:&nbsp;&nbsp;{{ task.location }}</p>
+            <p>Manpower Requirement:&nbsp;&nbsp;{{ task.manpower }}</p>
         </div>
     </div>
     {% if userid == task.user_id %}
@@ -22,6 +23,6 @@
             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</button>
         </form></br></br>
     {% endif %}
-
+    <a href="{{ url_for('tasks.mytasks') }}">Back to My Tasks</a>
 
 {% endblock %}

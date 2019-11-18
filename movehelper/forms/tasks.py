@@ -11,4 +11,5 @@ class NewTask(FlaskForm):
     context = CKEditorField('Context', validators=[DataRequired()])
     contact = StringField('Contact', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
+    manpower = SelectField('Manpower Requirement', choices=(("1","1"),("2","2"),("3","3")), validators=[DataRequired()])
     submit = SubmitField()
