@@ -12,7 +12,7 @@ class Certification(FlaskForm):
     namef = StringField('First Name', validators=[DataRequired()])
     namem = StringField('Mid Name')
     namel = StringField('Last Name', validators=[DataRequired()])
-    birthday = DateField('Birth Day', validators=[DataRequired()])
+    birthday = DateField('Birth Day', render_kw={'placeholder': 'yyyy/mm/dd'}, validators=[DataRequired()])
     gender = SelectField('Gender', choices=(("male","male"),("female","female"),("other","other")), validators=[DataRequired()])
     phone = StringField('Phone Number', validators=[DataRequired()])
     onid = StringField('ONID', validators=[DataRequired()])

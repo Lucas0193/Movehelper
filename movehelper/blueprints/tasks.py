@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user, l
 from datetime import datetime
 from sqlalchemy import join
 
+
 from movehelper.config import Operations
 from movehelper.emails import send_confirm_email
 from movehelper.forms.tasks import NewTask
@@ -13,6 +14,17 @@ from movehelper.filter import confirm_required
 
 
 tasks_bp = Blueprint('tasks', __name__)
+
+
+@tasks_bp.route('/opentasks')
+@login_required
+def opentasks():
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['MOVEHELPER_TASKS_PER_PAGE']
+    pagination = UserTasks.query.filter(UserTasks.user_id!=current_user.id, UserTasks.status==False).order_by(UserTasks.pubtime.desc()).paginate(page, per_page=per_page)
+    tasks = pagination.items
+    return render_template('tasks/opentasks.html', pagination=pagination, tasks=tasks)
+
 
 @tasks_bp.route('/new', methods=['GET', 'POST'])
 @login_required
@@ -89,6 +101,10 @@ def taskdelete(task_id):
 @login_required
 @confirm_required
 def applieddet(task_id):
-    order = TaskOrders.query.join(UserAccount, TaskOrders.manpower1==UserAccount.id).join(UserTasks).filter(TaskOrders.task_id==task_id).with_entities(TaskOrders.id, UserTasks.title, UserTasks.contact, UserTasks.context, UserTasks.location, TaskOrders.createtime, UserAccount.fname, UserAccount.mname, UserAccount.lname, UserAccount.gender, UserAccount.birth, UserAccount.onid, UserAccount.license).first()
+    order = TaskOrders.query.join(UserTasks).join(UserAccount, TaskOrders.manpower1==UserAccount.id).\
+            filter(TaskOrders.task_id==task_id).with_entities(TaskOrders.id.label('oid'), UserTasks.id, UserTasks.title, UserTasks.\
+            contact, UserTasks.context, UserTasks.location, TaskOrders.createtime, UserAccount.fname,\
+            UserAccount.mname, UserAccount.lname, UserAccount.gender, UserAccount.birth, UserAccount.onid, UserAccount.license)\
+            .first()
     
     return render_template('tasks/orderdet.html', order=order)

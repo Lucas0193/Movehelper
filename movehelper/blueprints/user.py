@@ -64,11 +64,11 @@ def applytask(task_id):
     task = UserTasks.query.get_or_404(task_id)
     taskstatus = task.status
     if  taskstatus == False :
-        flash('You applied this task', 'success')
         task.status = True
         neworder = TaskOrders(manpower1=current_user.id, task_id=task_id)
         db.session.add(neworder)
         db.session.commit()
+        flash('You applied this task', 'success')
         return redirect(url_for('user.index'))
     else :  
         flash('This task was closed', 'warning')

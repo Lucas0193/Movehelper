@@ -26,7 +26,7 @@
             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</button>
         </form></br></br>
     {% elif current_user.id != task.user_id and taskstatus == False %}
-        <a class="btn btn-info btn-sm" style="background-color: blueviolet;" href="{{ url_for('user.applytask', task_id=task.id) }}">Apply Task</a></br></br>
+        <a class="btn btn-info btn-sm" style="background-color: blueviolet;" onclick="return confirm('Are you sure?');" href="{{ url_for('user.applytask', task_id=task.id) }}">Apply Task</a></br></br>
     {% endif %}
     <a href="{{ url_for('tasks.mytasks') }}">Back to My Tasks</a>
 

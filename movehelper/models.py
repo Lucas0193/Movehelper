@@ -49,7 +49,7 @@ class UserTasks(db.Model):
     announcer = db.relationship('UserAccount', back_populates='tasks')
     applyer = db.relationship('TaskOrders', back_populates='order')
     def __repr__(self):
-        return '%s %s %s %s %s %s %s' % (self.id, self.pubtime, self.title, self.context, self.contact, self.location, self.state)
+        return '%s %s %s %s %s %s %s' % (self.id, self.pubtime, self.title, self.context, self.contact, self.location, self.status)
 
 class TaskOrders(db.Model):
     id = db.Column( db.Integer, primary_key=True)
@@ -62,4 +62,4 @@ class TaskOrders(db.Model):
     task_id = db.Column(db.Integer, db.ForeignKey('user_tasks.id'))
     order = db.relationship('UserTasks', back_populates='applyer')
     def __repr__(self):
-        return '%s %s %s %s %s %s' % (self.id, self.createtime, self.manpower1, self.manpower2, self.manpower3, self.state)
+        return '%s %s %s %s %s %s' % (self.id, self.createtime, self.manpower1, self.manpower2, self.manpower3, self.status)

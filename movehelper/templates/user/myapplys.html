@@ -9,9 +9,11 @@
                 {% if applys %}
                     {% for apply in applys %}
                         <P nowrap>
-                            <a href="{{ url_for('tasks.taskdet', task_id=apply.task_id) }}">
-                                OrderID:&nbsp;&nbsp;{{ apply.id }}&nbsp;&nbsp;|TaskID:&nbsp;&nbsp;{{ apply.task_id }}&nbsp;&nbsp;|TaskTitle:&nbsp;&nbsp;{{ apply.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Created at:&nbsp;&nbsp;{{ apply.createtime }}
-                            </a>
+                            
+                            <p style="display: inline;">OrderNo.&nbsp;{{ apply.id }}&nbsp;&nbsp;|&nbsp;&nbsp;TaskNo.&nbsp;{{ apply.task_id }}&nbsp;&nbsp;|&nbsp;&nbsp;TaskTitle:&nbsp;&nbsp;{{ apply.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Created at:&nbsp;&nbsp;{{ apply.createtime }}&nbsp;&nbsp;</p>
+                            <form class="mtask" method="POST" style="display: inline;">
+                                <button type="submit" class="btn btn-info btn-sm" style="background-color: rgb(243, 163, 14); white-space: nowrap;" formaction="{{ url_for('tasks.taskdet', task_id=apply.task_id) }}">Check</button>&nbsp;
+                            </form>
                         </P>
                     {% endfor %}
                     {% if applys %}
@@ -22,4 +24,5 @@
                 {% endif %}
             </div>
         </div>
+        <a href="{{ url_for('tasks.opentasks') }}">Explore Open Tasks</a>
 {% endblock %}

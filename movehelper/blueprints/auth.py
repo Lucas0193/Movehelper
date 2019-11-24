@@ -61,19 +61,21 @@ def register():
     return render_template('auth/register.html', form=form)
 
 @auth_bp.route('/confirm/<token>')
-@login_required
 def confirm(token):
-    if current_user.confirmed:
-        flash('You are already comfirmed')
-        return redirect(url_for('user.index'))
+    if current_user.is_authenticated:
+        if current_user.confirmed:
+            flash('You are already comfirmed')
+            return redirect(url_for('user.index'))
 
-    if validate_token(user=current_user, token=token, operation=Operations.CONFIRM):
-        flash('Account confirmed.', 'success')
-        return redirect(url_for('user.index'))
+        if validate_token(user=current_user, token=token, operation=Operations.CONFIRM):
+            flash('Account confirmed.', 'success')
+            return redirect(url_for('user.index'))
+        else:
+            flash('Invalid or expired token.', 'danger')
+            return redirect(url_for('.resend_confirm_email'))
     else:
-        flash('Invalid or expired token.', 'danger')
-        return redirect(url_for('.resend_confirm_email'))
-
+        flash('Please login first!', 'warning')
+        return redirect(url_for('main.index'))
 
 @auth_bp.route('/resend-confirm-email')
 @login_required

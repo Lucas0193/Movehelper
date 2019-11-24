@@ -111,6 +111,7 @@
         <div class="dropdown-content">
             <a href="{{ url_for('tasks.mytasks')}}">My Tasks</a>
             <a href="{{ url_for('tasks.newtask') }}">Release Task</a>
+            <a href="{{ url_for('tasks.opentasks') }}">Open Tasks</a>
             <a href="{{ url_for('user.myapply') }}">My Applied Tasks</a>
         </div>
     </div>
@@ -126,7 +127,7 @@
             {% else %}
                 <p style="background-color: rgb(223, 26, 26); color: #FFF;">User Status: Unconfirmed</p>
             {% endif %}
-            <a href="{{ url_for('user.index') }}">My Home</a>
+            <a href="{{ url_for('user.index') }}">My Home(will rewrite)</a>
             <a href="#">Profile(developing)</a>
             <a href="#">Notification(developing)</a>
             <a href="{{ url_for('user.passwordchange') }}">Change Password</a>

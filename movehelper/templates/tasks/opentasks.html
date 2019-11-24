@@ -1,0 +1,27 @@
+{% extends 'base2.html' %}
+{% from 'bootstrap/pagination.html' import render_pager %}
+{% block content %}
+    <h1>MoveHelper </h1>
+        <div class="row">
+            <div class="col-sm-8">
+                
+                {% if tasks %}
+                    {% for task in tasks %}
+                        <P>
+                            <p style="display: inline;">&nbsp;&nbsp;{{ task.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Released at:&nbsp;&nbsp;{{ task.pubtime }}</p>&nbsp;&nbsp;
+                            <form method="POST" style="display: inline;">
+                                <button type="submit" class="btn btn-info btn-sm" style="background-color: chartreuse; white-space: nowrap;" formaction="{{ url_for('tasks.taskdet', task_id=task.id) }}">Apply Now</button>&nbsp;
+                            </form>
+                        </P>
+                    {% endfor %}
+                    {% if tasks %}
+                        <div class="page-footer">{{ render_pager(pagination) }}</div>
+                    {% endif %}
+                {% else %}    
+                    <h4>No open tasks, please waitting!</h4>
+                {% endif %}
+            </div>
+        </div>
+        <a href="{{ url_for('user.index') }}">Back to My Home</a></br>
+        <a href="{{ url_for('user.myapply') }}">Back to My Applied Tasks</a>
+{% endblock %}

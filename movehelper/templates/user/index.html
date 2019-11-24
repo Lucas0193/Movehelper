@@ -10,14 +10,14 @@
                 {% if tasks %}
                     {% for task in tasks %}
                         <P>
-                            <a href="{{ url_for('tasks.taskdet', task_id=task.id) }}">
-                                Title:&nbsp;&nbsp;{{ task.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Released at:&nbsp;&nbsp;{{ task.pubtime }}
-                            </a>
-                            {% if task.status == False %}
-                                <button class="btn btn-info btn-sm" style="background-color: chartreuse; white-space: nowrap;">Unlock</button>&nbsp;
-                            {% else %}
-                                <button class="btn btn-info btn-sm" style="background-color: rgb(245, 16, 27); white-space: nowrap;">Locked</button>&nbsp;
-                            {% endif %}
+                                <p style="display: inline;">&nbsp;&nbsp;{{ task.title }}&nbsp;&nbsp;|&nbsp;&nbsp;Released at:&nbsp;&nbsp;{{ task.pubtime }}</p>&nbsp;&nbsp;
+                                {% if task.status == False %}
+                                    <form method="POST" style="display: inline;">
+                                        <button type="submit" class="btn btn-info btn-sm" style="background-color: chartreuse; white-space: nowrap;" formaction="{{ url_for('tasks.taskdet', task_id=task.id) }}">Apply Now</button>&nbsp;
+                                    </form>
+                                {% else %}
+                                    <button class="btn btn-info btn-sm" style="background-color: rgb(245, 16, 27); white-space: nowrap;">Locked</button>&nbsp;
+                                {% endif %}
                         </P>
                     {% endfor %}
                     {% if tasks %}
