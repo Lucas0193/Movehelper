@@ -4,8 +4,8 @@ from sqlalchemy import func
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-class UserAccount(db.Model, UserMixin):
 
+class UserAccount(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, index=True)
     email = db.Column(db.String(254), unique=True, index=True)
@@ -22,44 +22,41 @@ class UserAccount(db.Model, UserMixin):
     license = db.Column(db.String(200))
     def create_password(self, password):
         self.password_hash = generate_password_hash(password)
-
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
-
     confirmed = db.Column(db.Boolean, default=False)
     certificated = db.Column(db.Boolean, default=False)
-
-    tasks = db.relationship('UserTasks', back_populates='announcer')
-
+    status = db.Column(db.Boolean, default=True)
+    ut = db.relationship('UserTasks', back_populates='ua')
+    to = db.relationship('TaskOrders', back_populates='ua')
     def __repr__(self):
         return '%s %s' % (self.id, self.username)
 
-class UserTasks(db.Model):
 
+class UserTasks(db.Model):
     id = db.Column( db.Integer, primary_key=True)
     pubtime = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     title = db.Column(db.String(70))
     context = db.Column(db.Text)
     contact = db.Column(db.String(20))
     location = db.Column(db.String(100))
-    manpower = db.Column(db.String(20))
+    mpnum = db.Column(db.Integer)
+    mpnume = db.Column(db.Integer, default=0)
     status = db.Column(db.Boolean, default=False)
-
     user_id = db.Column(db.Integer, db.ForeignKey('user_account.id'))
-    announcer = db.relationship('UserAccount', back_populates='tasks')
-    applyer = db.relationship('TaskOrders', back_populates='order')
+    ua = db.relationship('UserAccount', back_populates='ut')
+    to = db.relationship('TaskOrders', back_populates='ut')
     def __repr__(self):
-        return '%s %s %s %s %s %s %s' % (self.id, self.pubtime, self.title, self.context, self.contact, self.location, self.status)
+        return '%s %s %s %s %s %s %s %s %s %s' % (self.id, self.pubtime, self.title, self.context, self.contact, self.location, self.mpnum, self.mpnume, self.status, self.user_id)
+
 
 class TaskOrders(db.Model):
     id = db.Column( db.Integer, primary_key=True)
     createtime = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-    manpower1 = db.Column(db.Integer, index=True)
-    manpower2 = db.Column(db.Integer, index=True)
-    manpower3 = db.Column(db.Integer, index=True)
-    status = status = db.Column(db.Boolean, default=True)
-
+    status = db.Column(db.Boolean, default=True)
+    manpower = db.Column(db.Integer, db.ForeignKey('user_account.id'))
     task_id = db.Column(db.Integer, db.ForeignKey('user_tasks.id'))
-    order = db.relationship('UserTasks', back_populates='applyer')
+    ut = db.relationship('UserTasks', back_populates='to')
+    ua = db.relationship('UserAccount', back_populates='to')
     def __repr__(self):
-        return '%s %s %s %s %s %s' % (self.id, self.createtime, self.manpower1, self.manpower2, self.manpower3, self.status)
+        return '%s %s %s %s %s' % (self.id, self.createtime, self.manpower, self.status, self.task_id)

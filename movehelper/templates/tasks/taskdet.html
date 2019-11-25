@@ -5,29 +5,52 @@
     <div class="row">
         <div class="col-sm-8">
             {% if taskstatus == False %}
-                <p>Task Status: Task is waiting to apply!</p>
+                <p style="color: green;">Task Status: Task is waiting to apply!</p>
             {% else %}
-                <p>Task Status: Task has been applied!</p>
+                <p style="color: red;">Task Status: Task Was Closed</p>
             {% endif %}
             <p>Title:&nbsp;&nbsp;{{ task.title }}</p>
-            <p>Announcer:&nbsp;&nbsp;{{ task.announcer.username }}</p>
+            <p>Announcer:&nbsp;&nbsp;{{ task.ua.username }}</p>
             <p>Release Time:&nbsp;&nbsp;{{ task.pubtime }}</p>
             <p>Context:&nbsp;&nbsp;{{ task.context }}</p>
             <p>Contact:&nbsp;&nbsp;{{ task.contact }}</p>
             <p>Location:&nbsp;&nbsp;{{ task.location }}</p>
-            <p>Manpower Requirement:&nbsp;&nbsp;{{ task.manpower }}</p>
+            <p>Manpower Requirement:&nbsp;&nbsp;{{ task.mpnum }}</p>
+            {% if task.mpnume == 0 %}
+                <p style="color: green;">Appiled person:&nbsp;&nbsp;{{ task.mpnume }}</p>
+            {% elif task.mpnume < task.mpnum %}
+                <p style="color: goldenrod;">Appiled person:&nbsp;&nbsp;{{ task.mpnume }}</p>
+            {% elif task.mpnume == task.mpnum %}
+                <p style="color: red;">Appiled person:&nbsp;&nbsp;{{ task.mpnume }}</p>
+            {% endif %}
         </div>
     </div>
-    {% if current_user.id == task.user_id and taskstatus == False %}
-        <a class="btn btn-info btn-sm" href="{{ url_for('tasks.taskedit', task_id=task.id) }}">Edit this Task</a></br></br>
-        
-        <form class="inline" method="post"
-            action="{{  url_for('tasks.taskdelete', task_id=task.id) }}">
-            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</button>
-        </form></br></br>
-    {% elif current_user.id != task.user_id and taskstatus == False %}
-        <a class="btn btn-info btn-sm" style="background-color: blueviolet;" onclick="return confirm('Are you sure?');" href="{{ url_for('user.applytask', task_id=task.id) }}">Apply Task</a></br></br>
+    {% if orders %}
+        {% if order %}
+            {% if current_user.id == task.user_id and task.mpnume != 0%}
+                <p style="color: coral;">Your task was appiled, you can not eidt or delete it!</p>
+            {% elif current_user.id != task.user_id and taskstatus == False %}
+                <p style="color: blueviolet;">You were already appiled this task.</p></br></br>                
+            {% endif %}
+        {% else %}
+            {% if current_user.id == task.user_id and task.mpnume != 0%}
+                <p style="color: coral;">Your task was appiled, you can not eidt or delete it!</p>
+            {% elif current_user.id != task.user_id and taskstatus == False %}
+                <a class="btn btn-info btn-sm" style="background-color: blueviolet;" onclick="return confirm('Are you sure?');" href="{{ url_for('user.applytask', task_id=task.id) }}">Apply Task</a></br></br>
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {% if current_user.id == task.user_id and taskstatus == False and task.mpnume == 0 %}
+            <a class="btn btn-info btn-sm" href="{{ url_for('tasks.taskedit', task_id=task.id) }}">Edit this Task</a></br></br>   
+            <form class="inline" method="post"
+                action="{{  url_for('tasks.taskdelete', task_id=task.id) }}">
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</button>
+            </form></br></br>
+        {% elif current_user.id != task.user_id and taskstatus == False %}
+            <a class="btn btn-info btn-sm" style="background-color: blueviolet;" onclick="return confirm('Are you sure?');" href="{{ url_for('user.applytask', task_id=task.id) }}">Apply Task</a></br></br>
+        {% endif %}
     {% endif %}
+    
     <a href="{{ url_for('tasks.mytasks') }}">Back to My Tasks</a>
 
 {% endblock %}

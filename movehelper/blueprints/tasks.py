@@ -50,9 +50,10 @@ def newtask():
 @confirm_required
 def taskdet(task_id):
     task = UserTasks.query.get_or_404(task_id)
-    userid = current_user.id
+    orders = TaskOrders.query.filter(TaskOrders.task_id==task_id).all()
+    order = TaskOrders.query.filter(TaskOrders.task_id==task_id, TaskOrders.manpower==current_user.id).all()
     taskstatus = task.status
-    return render_template('tasks/taskdet.html', task=task, userid=userid, taskstatus=taskstatus)
+    return render_template('tasks/taskdet.html', task=task, taskstatus=taskstatus, orders=orders, order=order)
     
 
 @tasks_bp.route('/mytasks', methods=['GET', 'POST'])
@@ -63,8 +64,8 @@ def mytasks():
     per_page = current_app.config['MOVEHELPER_TASKS_PER_PAGE']
     pagination = UserTasks.query.filter(UserTasks.user_id==current_user.id).order_by(UserTasks.pubtime.desc()).paginate(page, per_page=per_page)
     usertasks = pagination.items
-    
     return render_template('tasks/mytasks.html', pagination=pagination, usertasks=usertasks)
+
 
 @tasks_bp.route('/task/<int:task_id>/taskedit', methods=['GET', 'POST'])
 @login_required
@@ -77,15 +78,16 @@ def taskedit(task_id):
         task.context = form.context.data
         task.contact = form.contact.data
         task.location = form.location.data
-        task.manpower = form.manpower.data
+        task.mpnum = form.manpower.data
         db.session.commit()
         flash('Task Updated!','success')
-        return redirect(url_for('tasks.taskdet', task_id=task.id, editbool=1))
+        return redirect(url_for('tasks.taskdet', task_id=task.id))
     form.title.data = task.title
     form.context.data = task.context
     form.contact.data = task.contact
     form.location.data = task.location
     return render_template('tasks/taskedit.html', form=form, task=task)
+
 
 @tasks_bp.route('/task/<int:task_id>/taskdelete', methods=['GET', 'POST'])
 @login_required
@@ -97,14 +99,14 @@ def taskdelete(task_id):
     flash ('Task Deleted!', 'success')
     return redirect(url_for('tasks.mytasks'))
 
+
 @tasks_bp.route('/task/<int:task_id>/applieddet', methods=['GET', 'POST'])
 @login_required
 @confirm_required
 def applieddet(task_id):
-    order = TaskOrders.query.join(UserTasks).join(UserAccount, TaskOrders.manpower1==UserAccount.id).\
-            filter(TaskOrders.task_id==task_id).with_entities(TaskOrders.id.label('oid'), UserTasks.id, UserTasks.title, UserTasks.\
-            contact, UserTasks.context, UserTasks.location, TaskOrders.createtime, UserAccount.fname,\
+    task = UserTasks.query.get_or_404(task_id)
+    applyers = TaskOrders.query.join(UserAccount, TaskOrders.manpower==UserAccount.id).\
+            filter(TaskOrders.task_id==task_id).with_entities(TaskOrders.id, TaskOrders.createtime, UserAccount.fname,\
             UserAccount.mname, UserAccount.lname, UserAccount.gender, UserAccount.birth, UserAccount.onid, UserAccount.license)\
-            .first()
-    
-    return render_template('tasks/orderdet.html', order=order)
+            .all()
+    return render_template('tasks/orderdet.html', task=task, applyers=applyers)

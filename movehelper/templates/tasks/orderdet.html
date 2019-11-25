@@ -5,21 +5,23 @@
     <div class="row">
         <div class="col-sm-8">
             <P>Task Details</P>
-            <p>Title:&nbsp;&nbsp;{{ order.title }}</p>
-            <p>Context:&nbsp;&nbsp;{{ order.context }}</p>
-            <p>Contact:&nbsp;&nbsp;{{ order.contact }}</p>
-            <p>Location:&nbsp;&nbsp;{{ order.location }}</p>
+            <p>Title:&nbsp;&nbsp;{{ task.title }}</p>
+            <p>Context:&nbsp;&nbsp;{{ task.context }}</p>
+            <p>Contact:&nbsp;&nbsp;{{ task.contact }}</p>
+            <p>Location:&nbsp;&nbsp;{{ task.location }}</p>
         </div>
-        <div class="col-sm-8">
-            <p>Application Details</p>
-            <p>OrderID:&nbsp;&nbsp;{{ order.oid }}</p>
-            <p>Applied DateTime:&nbsp;&nbsp;{{ order.createtime }}</p>
-            <p>Name:&nbsp;&nbsp;{{ order.fname }}.{{ order.mname }}.{{ order.lname }}</p>
-            <p>Gender:&nbsp;&nbsp;{{ order.gender }}</p>
-            <p>Birthday:&nbsp;&nbsp;{{ order.birth }}</p>
-            <p>ONID:&nbsp;&nbsp;{{ order.onid }}</p>
-            <p>Driver Lisence:&nbsp;&nbsp;{{ order.license }}</p>
-        </div>
+        {% for applyer in applyers %}
+            <div class="col-sm-8">
+                <p>Application Details</p>
+                <p>OrderID:&nbsp;&nbsp;{{ applyer.id }}</p>
+                <p>Applied DateTime:&nbsp;&nbsp;{{ applyer.createtime }}</p>
+                <p>Name:&nbsp;&nbsp;{{ applyer.fname }}.{{ applyer.mname }}.{{ applyer.lname }}</p>
+                <p>Gender:&nbsp;&nbsp;{{ applyer.gender }}</p>
+                <p>Birthday:&nbsp;&nbsp;{{ applyer.birth }}</p>
+                <p>ONID:&nbsp;&nbsp;{{ applyer.onid }}</p>
+                <p>Driver Lisence:&nbsp;&nbsp;{{ applyer.license }}</p>
+            </div>
+        {% endfor %}
     </div>
     
     <a href="{{ url_for('tasks.mytasks') }}">Back to My Tasks</a>
