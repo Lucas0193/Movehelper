@@ -29,23 +29,13 @@ class BaseConfig:
     MOVEHELPER_MANAGE_COMMENT_PER_PAGE = 30
     MOVEHELPER_SEARCH_RESULT_PER_PAGE = 20
     MOVEHELPER_MAIL_SUBJECT_PREFIX = '[Movehelper]'
-    MOVEHELPER_UPLOAD_PATH = os.path.join(basedir, 'uploads')
-    MOVEHELPER_PHOTO_SIZE = {'small': 400,
-                         'medium': 800}
-    MOVEHELPER_PHOTO_SUFFIX = {
-        MOVEHELPER_PHOTO_SIZE['small']: '_s',  # thumbnail
-        MOVEHELPER_PHOTO_SIZE['medium']: '_m',  # display
-    }
 
-    SECRET_KEY = b'\xc1\xf0\x8a\xad\xba\xe6\xe9\x1d\xbf\x03\xd8o'
     MAX_CONTENT_LENGTH = 3 * 1024 * 1024  # file size exceed to 3 Mb will return a 413 error response.
 
     BOOTSTRAP_SERVE_LOCAL = True
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    AVATARS_SAVE_PATH = os.path.join(MOVEHELPER_UPLOAD_PATH, 'avatars')
-    AVATARS_SIZE_TUPLE = (30, 100, 200)
 
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
