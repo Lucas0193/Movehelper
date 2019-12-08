@@ -2,7 +2,7 @@ from flask import flash, redirect, url_for, render_template, Blueprint, request,
 from flask_login import login_user, logout_user, login_required, current_user, login_fresh
 from sqlalchemy import or_
 
-
+from movehelper.emails import send_order_email, send_order_email_2
 from movehelper.forms.user import Certification, PasswordChange
 from movehelper.models import UserAccount, UserTasks, TaskOrders
 from movehelper.tools import db
@@ -81,6 +81,12 @@ def applytask(task_id):
             task.status = True
             db.session.add(neworder)
             db.session.commit()
+            announcer = UserAccount.query.get_or_404(task.user_id)
+            applyers = TaskOrders.query.join(UserAccount, TaskOrders.manpower==UserAccount.id).\
+                        filter(TaskOrders.task_id==task_id).with_entities(UserAccount.email,\
+                        UserAccount.username).all()
+            send_order_email(announcer=announcer, taskNo=task_id)
+            send_order_email_2(applyers=applyers, taskNo=task_id)
             flash('You applied this task', 'success')
             return redirect(url_for('user.index'))
     else :  

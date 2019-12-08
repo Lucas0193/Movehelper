@@ -1,0 +1,7 @@
+Hello {{ applyer.username }},
+
+Congratulation:
+
+    Your application for task:{{taskNo}} was completed, please log in to your account to check the detail!
+
+(Please do not reply to this notification, this inbox is not monitored.)

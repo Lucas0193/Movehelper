@@ -36,8 +36,8 @@ def newtask():
         context = form.context.data
         contact = form.contact.data
         location = form.location.data
-        manpower = form.manpower.data
-        task = UserTasks(title=title, context=context, contact=contact, location=location, manpower=manpower, user_id=current_user.id )
+        mpnum = form.manpower.data
+        task = UserTasks(title=title, context=context, contact=contact, location=location, mpnum=mpnum, user_id=current_user.id )
         db.session.add(task)
         db.session.commit()
         flash('Task Created!', 'success')

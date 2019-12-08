@@ -28,6 +28,10 @@ def send_confirm_email(user, token, to=None):
 def send_reset_password_email(user, token):
     send_mail(subject='Password Reset', to=user.email, template='email/resetpassword', user=user, token=token)
 
+def send_order_email(announcer, taskNo):
+    send_mail(subject='Your Order Completed', to=announcer.email, template='email/orderannounceemail', announcer=announcer, taskNo=taskNo)
 
-def send_change_email_email(user, token, to=None):
-    send_mail(subject='Change Email Confirm', to=to or user.email, template='email/changeemail', user=user, token=token)
+def send_order_email_2(applyers, taskNo):
+    for applyer in applyers:
+        send_mail(subject='Your Apply Completed', to=applyer.email, template='email/orderapplyeremail', applyer=applyer, taskNo=taskNo)
+    
