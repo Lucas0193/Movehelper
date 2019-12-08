@@ -37,7 +37,7 @@ class BaseConfig:
         MOVEHELPER_PHOTO_SIZE['medium']: '_m',  # display
     }
 
-    SECRET_KEY = os.getenv('SECRET_KEY', 'secret string')
+    SECRET_KEY = b'\xc1\xf0\x8a\xad\xba\xe6\xe9\x1d\xbf\x03\xd8o'
     MAX_CONTENT_LENGTH = 3 * 1024 * 1024  # file size exceed to 3 Mb will return a 413 error response.
 
     BOOTSTRAP_SERVE_LOCAL = True
@@ -73,14 +73,7 @@ class TestingConfig(BaseConfig):
 
 
 class ProductionConfig(BaseConfig):
-    HOSTNAME = '127.0.0.1'
-    PORT = '3306'
-    DATABASE = 'movehelper'
-    USERNAME = 'root'
-    PASSWORD = '2erming'
-    mydb = 'mysql+mysqlconnector://{}:{}@{}:{}/{}'.format(USERNAME,PASSWORD,HOSTNAME,PORT,DATABASE)
-    SQLALCHEMY_DATABASE_URI = mydb
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + os.path.join(basedir, 'data.db'))
 
 
 
