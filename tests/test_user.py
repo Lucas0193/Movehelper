@@ -7,16 +7,6 @@ from tests.base import BaseTestCase
 
 class UserTestCase(BaseTestCase):
 
-    def test_User_changepassword(self):
-        self.login()
-        response = self.client.post(url_for('user.passwordchange'), data=dict(
-            pwd='12345678',
-            pwd2='12345678'
-        ), follow_redirects=True)
-        data = response.get_data(as_text=True)
-        self.assertIn('PasswordChange successed. Please re-Login', data)
-
-
     def test_User_certificated_permission(self):
         self.login(email='uncertificated@movehelper.com', pwd='123456789')
         response = self.client.get(url_for('user.myapply'), follow_redirects=True)

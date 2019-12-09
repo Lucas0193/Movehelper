@@ -5,6 +5,22 @@
 </head>
 <body>
     <style>
+        body {
+            background-image: url("https://blog.appfolio.com/wp-content/uploads/2016/06/moving-out-1140x531.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center; 
+            background-color: #73AD21;
+        }
+        h1{
+            margin: 20px;
+            color: rgb(238, 166, 31);
+            font-family: verdana;
+            font-size: 300%;
+            color: white;
+            text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+        }
         .alert {
             left: 500px;
             text-align: center;
@@ -13,6 +29,43 @@
             width: 300px;
 	        z-index: 100;
         } 
+        a:link, a:visited {
+            border-radius: 50%;
+            margin: 20px;
+            background-color: #69b446;
+            color: rgb(32, 74, 209);
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-family: "Arial Black", Gadget, sans-serif;
+            font-size: 30px;
+        }
+
+        a:hover, a:active {
+            background-color: rgb(233, 154, 37);
+            transition: .5s;
+            font-family: "Arial Black", Gadget, sans-serif;
+        }
+        div p{
+        color: rgb(21, 24, 197);
+        font-family: courier;
+        font-size: 100%;
+        padding: 10px;
+        border: 2px solid #fa0;
+        border-style: outset;
+        margin: 20px;
+        }
+        div p1{
+        color: rgb(71, 51, 14);
+        font-family: courier;
+        font-size: 120%;
+        padding: 10px;
+        border: 2px solid #fa0;
+        border-style: outset;
+        margin: 20px;
+        }
+  
     </style>
     {% for message in get_flashed_messages() %}
         <div class="alert">

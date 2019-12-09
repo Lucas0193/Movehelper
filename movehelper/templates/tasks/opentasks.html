@@ -1,6 +1,30 @@
 {% extends 'base2.html' %}
 {% from 'bootstrap/pagination.html' import render_pager %}
 {% block content %}
+<style>
+.button1:link, .button1:visited {   
+        background-color: #b1d825;
+        color: rgb(129, 73, 8);
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin-left: 10px;
+        margin-top: 10px;
+        font-weight: bold;
+        font-family: "Times New Roman", Times, serif;
+        border-radius: 8px;
+    }
+
+        .button1:hover, .button1:active {
+        color: black;
+        background-color: rgb(50, 90, 85);
+    }
+
+</style>
+
+
+
     <h1>MoveHelper </h1>
         <div class="row">
             <div class="col-sm-8">
@@ -22,6 +46,6 @@
                 {% endif %}
             </div>
         </div>
-        <a href="{{ url_for('user.index') }}">Back to My Home</a></br>
-        <a href="{{ url_for('user.myapply') }}">Back to My Applied Tasks</a>
+        <a class="button1" href="{{ url_for('user.index') }}">Back to My Home</a></br>
+        <a class="button1" href="{{ url_for('user.myapply') }}">Back to My Applied Tasks</a>
 {% endblock %}

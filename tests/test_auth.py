@@ -62,3 +62,12 @@ class AuthTestCase(BaseTestCase):
         data = response.get_data(as_text=True)
         self.assertIn('Invalid or expired token.', data)
         self.assertNotIn('Account confirmed.', data)
+
+    def test_changepassword(self):
+        self.login()
+        response = self.client.post(url_for('user.passwordchange'), data=dict(
+            pwd='12345678',
+            pwd2='12345678'
+        ), follow_redirects=True)
+        data = response.get_data(as_text=True)
+        self.assertIn('PasswordChange successed. Please re-Login', data)

@@ -5,6 +5,13 @@
 </head>
 <body>
     <style>
+        body {
+        
+            background-image: url("https://prd-image-masters.caravan-stories.com.tw/c/sig=1.wJPHhERFgwnK6pqXcpnOuTgK_Pkdv2HcqqPh335P2iM=/caravan-stories/masters/production-tw/attachments/1b21c7fb435b583e0592c03c04df26a9.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+      
         .alert {
             left: 500px;
             text-align: center;
@@ -12,7 +19,25 @@
             top: 0;
             width: 300px;
 	        z-index: 100;
-        }    
+        }   
+        nav a:link, nav a:visited {
+            
+            background-color: #cf8422;
+            color: white;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 30px;
+            font-weight: bold;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        nav a:hover, nav a:active {
+            color: black;
+            background-color: red;
+        }
+
     </style>
     {% for message in get_flashed_messages() %}
         <div class="alert">

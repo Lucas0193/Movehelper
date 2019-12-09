@@ -1,6 +1,28 @@
 {% extends 'base2.html' %}
     
 {% block content %}
+<style>
+.button1:link, .button1:visited {   
+        background-color: #474542;
+        color: white;
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin-left: 10px;
+        margin-top: 10px;
+        font-weight: bold;
+        font-family: "Times New Roman", Times, serif;
+        border-radius: 8px;
+    }
+
+    .button1:hover, .button1:active {
+        color: black;
+        background-color: rgb(50, 90, 85);
+    }
+
+
+</style>
     <h1>MoveHelper </h1>
     <div class="row">
         <div class="col-sm-8">
@@ -51,6 +73,6 @@
         {% endif %}
     {% endif %}
     
-    <a href="{{ url_for('tasks.mytasks') }}">Back to My Tasks</a>
+    <a class="button1" href="{{ url_for('tasks.mytasks') }}">Back to My Tasks</a>
 
 {% endblock %}
