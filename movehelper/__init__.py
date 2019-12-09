@@ -5,7 +5,6 @@ import click
 from flask import Flask, render_template,request
 from faker import Faker
 
-
 from movehelper.blueprints.user import user_bp
 from movehelper.blueprints.main import main_bp
 from movehelper.blueprints.auth import auth_bp

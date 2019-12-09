@@ -8,3 +8,4 @@ Flask-Mail==0.9.1
 Flask-DotEnv==0.1.2
 Flask-CKEditor==0.4.3
 Bootstrap-Flask==1.1.0
+Faker==3.0.0
