@@ -50,7 +50,7 @@ class TasksTestCase(BaseTestCase):
         self.login()
         response = self.client.post(url_for('tasks.mytasks'), follow_redirects=True)
         data = response.get_data(as_text=True)
-        self.assertIn('TaskID:&nbsp;&nbsp;1', data)
+        self.assertIn('TaskNO.&nbsp;1', data)
     
     def test_Task_order(self):
         self.login(email='uncertificated@movehelper.com', pwd='123456789')

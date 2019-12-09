@@ -61,4 +61,4 @@ class UserTestCase(BaseTestCase):
             self.login()
             response = self.client.get(url_for('user.myapply'), follow_redirects=True)
             data = response.get_data(as_text=True)
-            self.assertIn('OrderID:&nbsp;&nbsp;1&nbsp;&nbsp;|TaskID:&nbsp;&nbsp;2', data)
+            self.assertIn('OrderNo.&nbsp;1&nbsp;&nbsp;|&nbsp;&nbsp;TaskNo.&nbsp;2', data)
